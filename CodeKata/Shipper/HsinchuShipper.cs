@@ -6,11 +6,10 @@ namespace CodeKata.Shipper
     {
         public double ShippingFee(Product product)
         {
-            var size = product.Length * product.Width * product.Height;
             if (product.Length > 100 || product.Width > 100 || product.Height > 100)
-                return size * 0.00002 * 1100 + 500;
+                return product.Size * 0.00002 * 1100 + 500;
             else
-                return size * 0.00002 * 1200;
+                return product.Size * 0.00002 * 1200;
         }
     }
 }
