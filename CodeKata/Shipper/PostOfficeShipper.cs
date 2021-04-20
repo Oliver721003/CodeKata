@@ -1,3 +1,4 @@
+using System;
 using CodeKata.Model;
 
 namespace CodeKata.Shipper
@@ -8,7 +9,7 @@ namespace CodeKata.Shipper
         {
             var feeByWeight = 80 + product.Weight * 10;
             var feeBySize = product.Size * 0.00002 * 1100;
-            return feeByWeight < feeBySize ? feeByWeight : feeBySize;
+            return Math.Min(feeByWeight, feeBySize);
         }
     }
 }
