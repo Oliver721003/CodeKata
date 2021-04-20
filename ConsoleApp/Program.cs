@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeKata;
 
 namespace ConsoleApp
 {
@@ -6,7 +7,9 @@ namespace ConsoleApp
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var cart = new CartContext();
+            var fee = cart.ShippingFee("black cat", 100d, 100d, 100d, 100d);
+            Console.WriteLine($"運算為 {fee} 元");
         }
     }
 }
