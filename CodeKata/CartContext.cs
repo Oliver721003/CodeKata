@@ -7,32 +7,20 @@ namespace CodeKata
 {
     public class CartContext
     {
-        public double ShippingFee(ShipperType shipperType, double length, double width, double height, double weight)
+        public IShipperStrategy Shipper { get; set; }
+
+        public double ShippingFee(double length, double width, double height, double weight)
         {
             var product = new Product {Length = length, Width = width, Height = height, Weight = weight};
-            return ShippingFee(shipperType, product);
+            return ShippingFee(product);
         }
 
-        public double ShippingFee(ShipperType shipperType, Product product)
+        public double ShippingFee(Product product)
         {
-            IShipperStrategy shipper;
+            if (Shipper == null)
+                throw new ArgumentException("shipper is not exist");
 
-            switch (shipperType)
-            {
-                case ShipperType.BlackCat:
-                    shipper = new BlackCarShipper();
-                    break;
-                case ShipperType.Hsinchu:
-                    shipper = new HsinchuShipper();
-                    break;
-                case ShipperType.PostOffice:
-                    shipper = new PostOfficeShipper();
-                    break;
-                default:
-                    throw new ArgumentException("shipper not exist");
-            }
-
-            return shipper.ShippingFee(product);
+            return Shipper.ShippingFee(product);
         }
     }
 }
