@@ -1,4 +1,5 @@
 using CodeKata;
+using CodeKata.Enum;
 using NUnit.Framework;
 
 namespace CodeKataTests
@@ -7,10 +8,6 @@ namespace CodeKataTests
     public class CartTests
     {
         private readonly CartContext _cart = new CartContext();
-
-        private const string BlackCat = "black cat";
-        private const string Hsinchu = "hsinchu";
-        private const string PostOffice = "post office";
 
         [Test]
         public void black_cat_with_light_weight()
