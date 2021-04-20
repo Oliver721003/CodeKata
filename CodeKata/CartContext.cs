@@ -5,41 +5,33 @@ namespace CodeKata
 {
     public class CartContext
     {
-        public double ShippingFee(ShipperType shipper, double length, double width, double height, double weight)
+        public double ShippingFee(ShipperType shipperType, double length, double width, double height, double weight)
         {
-            if (shipper == ShipperType.BlackCat)
+            switch (shipperType)
             {
-                if (weight > 20)
+                case ShipperType.BlackCat:
+                    return weight > 20 ? 500 : 100 + weight * 10;
+                case ShipperType.Hsinchu:
                 {
-                    return 500;
+                    var size = length * width * height;
+                    if (length > 100 || width > 100 || height > 100)
+                    {
+                        return size * 0.00002 * 1100 + 500;
+                    }
+                    else
+                    {
+                        return size * 0.00002 * 1200;
+                    }
                 }
-                else
+                case ShipperType.PostOffice:
                 {
-                    return 100 + weight * 10;
+                    var feeByWeight = 80 + weight * 10;
+                    var size = length * width * height;
+                    var feeBySize = size * 0.00002 * 1100;
+                    return feeByWeight < feeBySize ? feeByWeight : feeBySize;
                 }
-            }
-            else if (shipper == ShipperType.Hsinchu)
-            {
-                var size = length * width * height;
-                if (length > 100 || width > 100 || height > 100)
-                {
-                    return size * 0.00002 * 1100 + 500;
-                }
-                else
-                {
-                    return size * 0.00002 * 1200;
-                }
-            }
-            else if (shipper == ShipperType.PostOffice)
-            {
-                var feeByWeight = 80 + weight * 10;
-                var size = length * width * height;
-                var feeBySize = size * 0.00002 * 1100;
-                return feeByWeight < feeBySize ? feeByWeight : feeBySize;
-            }
-            else
-            {
-                throw new ArgumentException("shipper not exist");
+                default:
+                    throw new ArgumentException("shipper not exist");
             }
         }
     }
